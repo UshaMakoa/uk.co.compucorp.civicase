@@ -115,7 +115,15 @@
             <a ng-if="role.contact_id" ng-href="{{ 'civicrm/contact/view' | civicaseCrmUrl:{ cid: role.contact_id } }}">{{ role.display_name }}</a>
             <span ng-if="!role.contact_id">{{ ts('Unassigned')  }}</span>
           </td>
-          <td class="civicase__people-tab__table-column">{{ role.start_date ? formatDate(role.start_date) : '' }}</td>
+          <!-- <td class="civicase__people-tab__table-column">AA{{ role.start_date ? formatDate(role.start_date) : '' }}</td> -->
+          <td class="civicase__people-tab__table-column">
+            <input
+              type="text"
+              civicase-inline-datepicker
+              placeholder
+              value="{{role.start_date}}"
+              format= "dd-mm-yy"/>
+          </td>
           <td class="civicase__people-tab__table-column">{{ role.phone }}</td>
           <td class="civicase__people-tab__table-column">
             <a
