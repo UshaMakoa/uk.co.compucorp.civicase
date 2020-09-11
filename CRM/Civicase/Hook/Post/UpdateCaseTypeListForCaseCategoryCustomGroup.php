@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class CCRM_Civicase_Hook_Post_UpdateCaseTypeListForCaseCategoryCustomGroup.
+ * Case Custom Group Post Update For Case Types.
  */
 class CRM_Civicase_Hook_Post_UpdateCaseTypeListForCaseCategoryCustomGroup {
 
@@ -23,6 +23,9 @@ class CRM_Civicase_Hook_Post_UpdateCaseTypeListForCaseCategoryCustomGroup {
     }
 
     $caseTypeDetails = $this->getCaseTypeDetails($objectId);
+    if (!$caseTypeDetails['case_type_category']) {
+      return;
+    }
 
     if ($op === 'create') {
       $this->addCaseTypeToCaseCategoryCustomGroupList($caseTypeDetails['case_type_category'], $objectId);

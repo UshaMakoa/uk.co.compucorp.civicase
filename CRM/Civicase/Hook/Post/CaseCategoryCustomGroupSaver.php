@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class CRM_Civicase_Hook_Post_CaseCategoryCustomGroupSaver.
+ * Case Category Custom Group Saver class.
  */
 class CRM_Civicase_Hook_Post_CaseCategoryCustomGroupSaver {
 
@@ -38,7 +38,11 @@ class CRM_Civicase_Hook_Post_CaseCategoryCustomGroupSaver {
    *   Object reference.
    */
   private function saveCustomGroupForCaseCategory(&$objectRef) {
-    $caseTypeCategories = array_flip(CRM_Case_BAO_CaseType::buildOptions('case_type_category', 'validate'));
+    $caseTypeCategories = CRM_Case_BAO_CaseType::buildOptions('case_type_category', 'validate');
+    if (empty($caseTypeCategories)) {
+      return;
+    }
+    $caseTypeCategories = array_flip($caseTypeCategories);
     if (empty($caseTypeCategories[$objectRef->extends])) {
       return;
     }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class CRM_Civicase_Test_Fabricator_CaseCategory.
+ * CaseCategory Fabricator.
  */
 class CRM_Civicase_Test_Fabricator_CaseCategory {
 
@@ -17,8 +17,15 @@ class CRM_Civicase_Test_Fabricator_CaseCategory {
   public static function fabricate(array $params = []) {
     $params = self::mergeDefaultParams($params);
     $result = civicrm_api3('OptionValue', 'create', $params);
+    $caseCategoryResult = array_shift($result['values']);
+    if (!empty($params['instance_id'])) {
+      civicrm_api3('CaseCategoryInstance', 'create', [
+        'instance_id' => $params['instance_id'],
+        'category_id' => $caseCategoryResult['value'],
+      ]);
+    }
 
-    return array_shift($result['values']);
+    return $caseCategoryResult;
   }
 
   /**
